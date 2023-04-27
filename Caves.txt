@@ -1,7 +1,7 @@
 var util = import Utility
 
 ?foe = boss
-    ?foe.distance <= 20
+	?foe.distance <= 20
 		equipL wand poison D
 
 		?util.ShouldApplyPoison()
@@ -10,19 +10,20 @@ var util = import Utility
 			equipR wand dL
 		:
 			equipR wand vigor D
-    :
+	:
 		util.Equips_NonCombat()
 
 ://not boss
 	?foe.distance <= 6
 		equipL big dL
 		equipR big dP
-    :?foe.distance <= 20
+
+	:?foe.distance <= 20
 		equipL wand poison D
 
 		?hp < maxhp
 			equipR wand dL
 		:
 			equipR wand vigor D
-    :
+	:
 		util.Equips_NonCombat()

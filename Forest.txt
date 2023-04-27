@@ -1,11 +1,12 @@
 var util = import Utility
 
 ?foe = boss
-    ?foe.armor > 0 & foe.distance > 6
-    ^& foe.distance < 20
+	?foe.armor > 0 & foe.distance > 6
+	^& foe.distance < 20
 		equipL hammer poison D
 		util.DashIfCan()
-    ?foe.distance <= 6
+
+	?foe.distance <= 6
 		?foe.armor > 0
 			equipL hammer poison D
 		:
@@ -18,27 +19,28 @@ var util = import Utility
 			util.DodgeIfCan()
 		:?foe = Morel & foe.state = 33
 		^& foe.time > 10 & foe.time < 50
-			DodgeIfCan()
+			util.DodgeIfCan()
 		:?util.ShouldApplyPoison()
 			equipR sword poison dP -big
 		:?hp < maxhp
 			equipR sword dL -big
 		:
 			equipR sword poison dP -big
-    :
+	:
 		util.Equips_NonCombat()
 		?foe ! puff
 			util.DashIfCan()
 
-  : //adds
-    ?foe.distance <= 6
+: //adds
+	?foe.distance <= 6
 		equipL big poison D
 		equipR big dL
-    :?foe.distance <= 20
+	:?foe.distance <= 20
 		equipL poison wand D
+
 		?hp < maxhp
 			equipR wand dL
 		:
 			equipR poison wand dP
-    :
-      	util.Equips_NonCombat()
+	:
+		util.Equips_NonCombat()
