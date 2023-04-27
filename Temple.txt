@@ -1,0 +1,9 @@
+?foe = boss
+    equipL sword -big dL
+    equipR sword -big dP
+:
+	?foe.distance <= 20
+		equipL wand dL
+		equipR wand dP
+	:
+		util.Equips_NonCombat()

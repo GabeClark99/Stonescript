@@ -1,0 +1,28 @@
+var util = import Utility
+
+?foe = boss
+	?foe.distance <= 20
+		equipL wand vigor D
+
+		?foe = phase1 & foe.state = 32 
+		^& foe.time >= 60
+			util.DodgeIfCan()
+		:?ShouldApplyPoison()
+			equipR wand poison dP
+		:?hp < maxhp
+			equipR wand vigor dL
+		:
+			equipR wand vigor D *8
+	:
+		util.Equips_NonCombat()
+
+://adds
+	?foe.distance <= 20
+		equipL wand vigor D
+		
+		?hp < maxhp
+			equipR wand vigor dL
+		:
+			equipR wand vigor D *8
+	:
+		util.Equips_NonCombat()

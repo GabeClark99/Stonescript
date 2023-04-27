@@ -1,0 +1,42 @@
+var util = import Utility
+
+?foe = boss | foe = wall
+	?foe.distance <= 6
+		equipL sword -big fire
+
+		// TODO ice debuff
+		equipR sword -big dL
+			
+	:?foe.distance <= 20
+		?foe.state = 133
+			equipL wand vigor *8 +6
+
+			// TODO ice debuff
+			?hp < maxhp
+				equipR wand dL
+			:
+				equipR wand vigor *9 +6
+		:
+			util.DashIfCan()
+	:
+		util.Equips_NonCombat()
+
+: // non-boss
+	/*?buffs.count > 0 & foe.debuffs.count < 6
+		?foe.distance <= 20
+			equip staff ice dI
+		:
+			util.Equips_NonCombat()
+	:*/
+	?foe.distance <= 6
+		equipL big dL
+		equipR big dP
+	:?foe.distance <= 20
+		equipL wand vigor *8 +6
+
+		?hp < maxhp
+			equipR wand dL
+		:
+			equipR wand vigor *9 +6
+	:
+		util.Equips_NonCombat()

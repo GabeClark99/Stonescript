@@ -1,0 +1,50 @@
+var util = import Utility
+
+?foe = boss
+	?foe.state = 32 & foe.time > 20
+		util.DodgeIfCan()
+	:?foe.state = 2
+		equip crossbow aether D
+
+		/*equipL wand vigor D *8
+
+		?hp < maxhp
+			equipR wand dL
+		:
+			equipR wand vigor *9*/
+	:?foe.state = 33
+		equipL sword -big dL
+		/*?foe.armor > 0
+			equipL hammer aether
+		:
+			equipL sword -big aether +5*/
+
+		?foe.distance > 6
+			util.DashIfCan()
+		:?ShouldApplyPoison()
+			equipR sword -big dP
+		/*:?hp < maxhp
+			equipR sword -big dL*/
+		:
+			equipR sword -big aether +4
+	:
+		util.Equips_NonCombat()
+
+: //not boss
+	?foe.distance <= 6
+		equipL sword big dL
+		equipR shield aether A
+		
+		/*?foe.armor > 0
+			equipL hammer aether
+		:
+			equipL big aether D
+
+		?hp < maxhp
+			equipR big dL
+		:
+			equipR big dP*/
+	:?foe.distance <= 20
+		util.DashIfCan()
+	:
+		util.Equips_NonCombat()

@@ -1,0 +1,96 @@
+/* ---UTILITY FUNCTIONS--- */
+
+func DisplayTime(xoff, yoff)
+  >`@xoff@,@yoff++@,
+  ^Best Time = @loc.bestTime/30@
+  >`@xoff@,@yoff++@,
+  ^Average Time = @loc.averageTime/30@
+  >`@xoff@,@yoff++@,
+  ^Current Time = @totaltime/30@
+
+func DisplayFoeStats(xoff, yoff)
+  ?foe.state >= 0
+    >`@xoff@,@yoff++@,
+    ^Foe = @foe.name@
+    >`@xoff@,@yoff++@,
+    ^Distance = @foe.distance@
+    >`@xoff@,@yoff++@,
+    ^Foe State = @foe.state@
+    >`@xoff@,@yoff++@,
+    ^State Frames = @foe.time@
+    ?foe.buffs.count > 0
+      >`@xoff@,@yoff++@,
+      ^Buffs = @foe.buffs.string@
+    ?foe.debuffs.count > 0
+      >`@xoff@,@yoff++@,
+      ^Debuffs = @foe.debuffs.string@
+
+func Equips_NonCombat()
+  ?foe.distance > 20
+    equipL trisk
+
+    ?pickup.distance < 15
+      equipR star
+    :
+      equipR oro
+
+func DashIfCan()
+  ?foe.distance < 19/* & foe.distance > 11*/
+    ?item.GetCooldown("bash") <= 0
+      equipR bash
+    :?item.GetCooldown("dash") <= 0
+      equipR dash
+
+func UsePotionIfCan()
+  ?hp < 10
+    activate potion
+
+func UseBladeIfCan()
+  ?foe.count >= 8
+  ^&item.GetCooldown("blade") <= 0
+    equip blade
+    activate R
+
+func DodgeIfCan()
+  ?item.GetCooldown("mind") <= 0
+    equipR mind
+
+func UseMaskIfCan()
+  ?item.GetCooldown("mask") <= 0 & buffs.count > 0 & foe.distance < 40
+    equip mask
+    activate R
+
+func ShouldApplyPoison()
+  var dbStr = foe.debuffs.string
+
+  ?dbStr ! "debuff_damage"
+    return true
+  :
+    var dbStrArr = string.Split(dbStr, ",")
+    var dmgDbStr
+    for value : dbStrArr
+      ?value = "debuff_damage"
+        dmgDbStr = value
+
+    var dmgDbFields = 
+    ^string.Split(dmgDbStr, ":")
+    var dmgDbIndex = 
+    ^dmgDbFields.IndexOf("debuff_damage")
+
+    var framesLeftStr = 
+    ^dmgDbFields[dmgDbIndex+2]
+    var framesLeftInt = 
+    ^int.Parse(framesLeftStr)
+
+    ?foe.distance <= 6
+      ?framesLeftInt < 15
+        return true
+      :
+        return false
+    :?foe.distance <= 20
+      ?framesLeftInt < 30
+        return true
+      :
+        return false
+    :
+      return false
