@@ -3,19 +3,33 @@ var util = import Utility
 ?foe = boss
 	?foe.distance <= 20
 		equipL wand vigor *8 D
-	?foe = phase1 & foe.state = 33
-	^& foe.time > 10 & foe.time < 40 
-		util.DodgeIfCan()
-	/*:?foe = phase2 & foe.state = 32
-	^& foe.time > 35
-		equipR mind
-	:?foe = phase2
-		equip repeating*/
-	:?util.ShouldApplyPoison()
-		equipR wand poison dP
-	:?hp < maxhp
-		equipR wand vigor dL
+		?foe = phase1 & foe.state = 33
+		^& foe.time > 10 & foe.time < 40 
+			util.DodgeIfCan()
+
+		:?util.ShouldApplyPoison()
+			equipR wand poison dP
+		:?hp < maxhp
+			equipR wand vigor dL
+		:
+			equipR wand vigor *9
 	:
-		equipR wand vigor *9
+		util.Equips_NonCombat()
 :
-	util.Equips_NonCombat()
+	?foe.distance <= 6
+		?foe = immune_to_ranged
+			equipL sword -big dL
+			equipR sword -big dP
+		:
+			equipL wand dL
+			equipR wand vigor D *8
+	:?foe.distance <= 20
+		?foe = immune_to_ranged
+			equipL sword -big dL
+			util.DashIfCan()
+		:
+			equipL wand dL
+			equipR wand vigor D *8
+	:
+		util.Equips_NonCombat()
+
