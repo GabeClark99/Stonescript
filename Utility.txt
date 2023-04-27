@@ -8,23 +8,6 @@ func DisplayTime(xoff, yoff)
   >`@xoff@,@yoff++@,
   ^Current Time = @totaltime/30@
 
-func DisplayFoeStats(xoff, yoff)
-  ?foe.state >= 0
-    >`@xoff@,@yoff++@,
-    ^Foe = @foe.name@
-    >`@xoff@,@yoff++@,
-    ^Distance = @foe.distance@
-    >`@xoff@,@yoff++@,
-    ^Foe State = @foe.state@
-    >`@xoff@,@yoff++@,
-    ^State Frames = @foe.time@
-    ?foe.buffs.count > 0
-      >`@xoff@,@yoff++@,
-      ^Buffs = @foe.buffs.string@
-    ?foe.debuffs.count > 0
-      >`@xoff@,@yoff++@,
-      ^Debuffs = @foe.debuffs.string@
-
 func Equips_NonCombat()
   ?foe.distance > 20
     equipL trisk
@@ -46,7 +29,7 @@ func UsePotionIfCan()
     activate potion
 
 func UseBladeIfCan()
-  ?foe.count >= 8
+  ?foe.count >= 10
   ^&item.GetCooldown("blade") <= 0
     equip blade
     activate R
@@ -56,7 +39,8 @@ func DodgeIfCan()
     equipR mind
 
 func UseMaskIfCan()
-  ?item.GetCooldown("mask") <= 0 & buffs.count > 0 & foe.distance < 40
+  ?item.GetCooldown("mask") <= 0 & buffs.count > 0 
+	^& foe.distance < 40 & foe.state ! 1
     equip mask
     activate R
 
