@@ -27,7 +27,7 @@ var util = import Utility
 			util.DashIfCan()
 
 		?foe.distance <= 6
-			util.UseMaskIfCan()
+			//util.UseMaskIfCan()
 			?foe.armor > 0
 				equipL hammer poison D
 			:
@@ -35,6 +35,8 @@ var util = import Utility
 
 			?util.ShouldApplyPoison()
 				equipR sword poison dP -big
+			:?util.ShouldApplyFire()
+				equipR sword -big fire dF
 			:?hp < maxhp
 				equipR sword dL -big
 			:

@@ -3,12 +3,21 @@ var util = import Utility
 
 ?foe = boss
 	//util.UseMaskIfCan()
-	equipL sword -big ice dI
+	?foe.distance <= 6
+		equipL sword -big ice dI
 
-	?util.ShouldApplyPoison()
-		equipR sword -big dP
+		?foe.state = 112 & foe.time = 50
+			util.DodgeIfCan()
+		:?util.ShouldApplyPoison()
+			equipR sword -big dP
+		:?util.ShouldApplyFire()
+			equipR sword -big fire dF	
+		:
+			equipR sword -big dL
+	:?foe.distance <= 20
+		util.DashIfCan()
 	:
-		equipR sword -big dL
+		util.Equips_NonCombat()
 :
 	?foe.distance <= 20
 		?hp < maxhp

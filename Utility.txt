@@ -169,8 +169,6 @@ func UseMaskIfCan()
     activate R
 
 func ShouldApplyPoison()
-  //var dbStr = foe.debuffs.string
-
   ?foe.debuffs.string ! "debuff_damage"
     return true
   :
@@ -180,6 +178,25 @@ func ShouldApplyPoison()
 			return true
     :?foe.distance <= 20 & framesLeftInt < 30
 			return true
+    :
+      return false
+
+func ShouldApplyFire()
+	?foe.debuffs.string ! "debuff_dot"
+    return true
+  :
+		var framesLeftInt = ParseDebuffFrames("debuff_dot")
+
+    ?foe.distance <= 6
+			?framesLeftInt < 15
+				return true
+			:
+				return false
+    :?foe.distance <= 20
+			?framesLeftInt < 30
+				return true
+			:
+				return false
     :
       return false
 

@@ -7,23 +7,13 @@ var util = import Utility
 		util.UseMaskIfCan()
 		equip crossbow aether D
 
-		/*equipL wand vigor D *8
-
-		?hp < maxhp
-			equipR wand dL
-		:
-			equipR wand vigor *9*/
 	:?foe.state = 33
 		equipL sword -big dL
-		/*?foe.armor > 0
-			equipL hammer aether
-		:
-			equipL sword -big aether +5*/
 
 		?foe.distance > 6
 			util.DashIfCan()
-		:?util.ShouldApplyPoison()
-			equipR sword -big dP
+		:?util.ShouldApplyFire()
+			equipR sword -big fire dF
 		/*:?hp < maxhp
 			equipR sword -big dL*/
 		:

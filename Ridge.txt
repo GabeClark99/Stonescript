@@ -3,11 +3,16 @@ var util = import Utility
 ?foe = boss | foe = wall
 	?foe.distance <= 6
 		util.UseMaskIfCan()
-		
+
 		equipL sword -big fire
 
 		// TODO ice debuff
-		equipR sword -big dL
+		?util.ShouldApplyFire()
+			equipR sword -big fire dF
+		:?hp < maxhp
+			equipR sword -big dL
+		:
+			equipR sword -big dL
 			
 	:?foe.distance <= 20
 		?foe.state = 133
