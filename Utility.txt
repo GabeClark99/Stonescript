@@ -12,11 +12,11 @@ var cooldownWindow = ascii
 asciiend
 
 func DisplayTime(offX, offY)
-  >`@xoff@,@yoff++@,
+  >`@offX@,@offY++@,
   ^Best Time = @loc.bestTime/30@
-  >`@xoff@,@yoff++@,
+  >`@offX@,@offY++@,
   ^Average Time = @loc.averageTime/30@
-  >`@xoff@,@yoff++@,
+  >`@offX@,@offY++@,
   ^Current Time = @totaltime/30@
 
 func DisplayCooldowns(offX, offY)
@@ -42,23 +42,36 @@ func DisplayCooldowns(offX, offY)
 
 	cooldownValues.Clear()
 
-	
-
 func Equips_NonCombat()
-  ?foe.distance > 20
-    equipL trisk
+	?item.GetCooldown("quarterstaff") <= 0
+		equip quarterstaff
+		activate R
+	:
+		equipL trisk
 
-    ?pickup.distance < 15
-      equipR star
-    :
-      equipR oro
+		?pickup.distance < 15
+			equipR star
+		:
+			equipR oro
 
 func DashIfCan()
-  ?foe.distance < 19/* & foe.distance > 11*/
+  ?foe.distance <= 16 & foe.distance >= 11
     ?item.GetCooldown("bash") <= 0
       equipR bash
+		:?item.GetCooldown("quarterstaff") <= 0
+			equip quarterstaff
+			activate R
     :?item.GetCooldown("dash") <= 0
       equipR dash
+
+	:?foe.distance > 6
+		?item.GetCooldown("quarterstaff") <= 0
+			equip quarterstaff
+			activate R
+
+func DodgeIfCan()
+  ?item.GetCooldown("mind") <= 0
+    equipR mind
 
 func UsePotionIfCan()
   ?hp < 10
@@ -69,10 +82,6 @@ func UseBladeIfCan()
   ^&item.GetCooldown("blade") <= 0
     equip blade
     activate R
-
-func DodgeIfCan()
-  ?item.GetCooldown("mind") <= 0
-    equipR mind
 
 func UseMaskIfCan()
   ?item.GetCooldown("mask") <= 0 & buffs.count > 0 
