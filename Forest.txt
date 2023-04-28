@@ -19,12 +19,15 @@ var util = import Utility
 			util.DashIfCan()
 		:
 			util.Equips_NonCombat()
-	:
+	://shroom bosses
+		//util.UseBladeIfCan()
+
 		?foe.armor > 0 & foe.distance > 6 & foe.distance < 20
 			equipL hammer poison D
 			util.DashIfCan()
 
 		?foe.distance <= 6
+			util.UseMaskIfCan()
 			?foe.armor > 0
 				equipL hammer poison D
 			:
@@ -42,10 +45,7 @@ var util = import Utility
 			util.Equips_NonCombat()
 
 : //adds
-	?foe.distance <= 6
-		equipL big poison D
-		equipR big dL
-	:?foe.distance <= 20
+	?foe.distance <= 20
 		equipL poison wand D
 
 		?hp < maxhp
