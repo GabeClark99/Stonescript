@@ -68,26 +68,45 @@ func DisplayDebuffs(offX, offY)
 	?IsCombatArea()
 		>`@offX@,@offY@,#white,ascii
 ╔Debuffs╗
-║ICE    ║
-║PSN    ║
-║FIR    ║
-║STN    ║
-║FBL    ║
+║       ║
+║       ║
+║       ║
+║       ║
+║       ║
 ╚═══════╝
 asciiend
-		var contextX = offX + 5
+		var contextX = offX + 1
 		var contextY = offY + 1
 
-		>`@contextX@,@contextY++@,#white,@12@
-
-		?foe.debuffs.string = poison
-			
+		?foe.debuffs.string = "debuff_chill"
+			var framesLeft = ParseDebuffFrames("debuff_chill")
+			>`@contextX@,@contextY++@,#cyan,ICE @framesLeft@
 		:
-			>`@contextX@,@contextY++@,#white,@0@
+			>`@contextX@,@contextY++@,#white,ICE 0
 
-		>`@contextX@,@contextY++@,#white,@56@
-		>`@contextX@,@contextY++@,#white,@78@
-		>`@contextX@,@contextY++@,#white,@90@
+		?foe.debuffs.string = "debuff_damage"
+			var framesLeft = ParseDebuffFrames("debuff_damage")
+			>`@contextX@,@contextY++@,#green,PSN @framesLeft@
+		:
+			>`@contextX@,@contextY++@,#white,PSN 0
+
+		?foe.debuffs.string = "debuff_dot"
+			var framesLeft = ParseDebuffFrames("debuff_dot")
+			>`@contextX@,@contextY++@,#red,FIR @framesLeft@
+		:
+			>`@contextX@,@contextY++@,#white,FIR 0
+
+		?foe.debuffs.string = "stun"
+			var framesLeft = ParseDebuffFrames("stun")
+			>`@contextX@,@contextY++@,#yellow,STN @framesLeft@
+		:
+			>`@contextX@,@contextY++@,#white,STN 0
+
+		?foe.debuffs.string = "debuff_feeble"
+			var framesLeft = ParseDebuffFrames("debuff_feeble")
+			>`@contextX@,@contextY++@,#green,FBL @framesLeft@
+		:
+			>`@contextX@,@contextY++@,#white,FBL 0
 
 func Equips_NonCombat()
 	?item.GetCooldown("quarterstaff") = 0
@@ -180,7 +199,7 @@ func ParseDebuffFrames(targetDebuffName)
 			targetDebuffString = value
 
 	var targetDebuffStringFields = string.Split(targetDebuffString, ":")
-	var targetDebuffNameIndex = targetDebuffStringFields.IndexOf("debuff_damage")
+	var targetDebuffNameIndex = targetDebuffStringFields.IndexOf(targetDebuffName)
 
 	var framesLeftStr = targetDebuffStringFields[targetDebuffNameIndex+2]
 	var framesLeftInt = int.Parse(framesLeftStr)
