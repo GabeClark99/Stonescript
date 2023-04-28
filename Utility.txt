@@ -74,9 +74,18 @@ func DashIfCan()
 			?item.CanActivate("quarterstaff")
 				activate R
 
+func CanDodge()
+	?item.GetCooldown("mind") <= 0
+		return true
+	:
+		return false
+
+func Dodge()
+		equipR mind
+
 func DodgeIfCan()
-  ?item.GetCooldown("mind") <= 0
-    equipR mind
+  ?CanDodge()
+    Dodge()
 
 func UsePotionIfCan()
   ?hp < 10
@@ -90,8 +99,7 @@ func UseBladeIfCan()
 			activate R
 
 func UseMaskIfCan()
-  ?item.GetCooldown("mask") <= 0 & buffs.count > 0 
-	^& foe.distance < 40 & foe.state ! 1
+  ?item.GetCooldown("mask") <= 0 & foe.distance < 40 & foe.state ! 1
     equip mask
     ?item.CanActivate("mask")
 			activate R
