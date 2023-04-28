@@ -164,9 +164,8 @@ func UseBladeIfCan()
 
 func UseMaskIfCan()
   ?item.GetCooldown("mask") <= 0 & foe.distance < 40 & foe.state ! 1
-    equip mask
-    ?item.CanActivate("mask")
-			activate R
+    equipR mask
+    activate R
 
 func ShouldApplyPoison()
   //var dbStr = foe.debuffs.string
