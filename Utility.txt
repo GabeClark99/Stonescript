@@ -12,40 +12,43 @@ var cooldownWindow = ascii
 asciiend
 
 func DisplayTime(offX, offY)
-  >`@offX@,@offY++@,
-  ^Best Time = @loc.bestTime/30@
-  >`@offX@,@offY++@,
-  ^Average Time = @loc.averageTime/30@
-  >`@offX@,@offY++@,
-  ^Current Time = @totaltime/30@
+	?IsCombatArea()
+		>`@offX@,@offY++@,
+		^Best Time = @loc.bestTime/30@
+		>`@offX@,@offY++@,
+		^Average Time = @loc.averageTime/30@
+		>`@offX@,@offY++@,
+		^Current Time = @totaltime/30@
 
 func DisplayCooldowns(offX, offY)
-	>`@offX@,@offY@,#white,@cooldownWindow@
+	?IsCombatArea()
+		>`@offX@,@offY@,#white,@cooldownWindow@
 
-	var contextX = offX + 9
-	var contextY = offY + 1
+		var contextX = offX + 9
+		var contextY = offY + 1
 
-	var cooldownValues = [
-	^item.GetCooldown("blade"),
-	^item.GetCooldown("mask"),
-	^item.GetCooldown("bash"),
-	^item.GetCooldown("quarterstaff"),
-	^item.GetCooldown("dash"),
-	^item.GetCooldown("mind")
-	]
+		var cooldownValues = [
+		^item.GetCooldown("blade"),
+		^item.GetCooldown("mask"),
+		^item.GetCooldown("bash"),
+		^item.GetCooldown("quarterstaff"),
+		^item.GetCooldown("dash"),
+		^item.GetCooldown("mind")
+		]
 
-	for i = 0 .. 6 - 1
-		?cooldownValues[i] <= 0
-			>`@contextX@,@contextY++@,#green,RDY
-		:
-			>`@contextX@,@contextY++@,#red,@cooldownValues[i]/30 + "s"@
+		for i = 0 .. 6 - 1
+			?cooldownValues[i] <= 0
+				>`@contextX@,@contextY++@,#green,RDY
+			:
+				>`@contextX@,@contextY++@,#red,@cooldownValues[i]/30 + "s"@
 
-	cooldownValues.Clear()
+		cooldownValues.Clear()
 
 func Equips_NonCombat()
-	?item.GetCooldown("quarterstaff") <= 0
+	?item.GetCooldown("quarterstaff") = 0
 		equip quarterstaff
-		activate R
+		?item.CanActivate("quarterstaff")
+			activate R
 	:
 		equipL trisk
 
@@ -60,6 +63,7 @@ func DashIfCan()
       equipR bash
 		:?item.GetCooldown("quarterstaff") <= 0
 			equip quarterstaff
+			?item.CanActivate("quarterstaff")
 			activate R
     :?item.GetCooldown("dash") <= 0
       equipR dash
@@ -67,7 +71,8 @@ func DashIfCan()
 	:?foe.distance > 6
 		?item.GetCooldown("quarterstaff") <= 0
 			equip quarterstaff
-			activate R
+			?item.CanActivate("quarterstaff")
+				activate R
 
 func DodgeIfCan()
   ?item.GetCooldown("mind") <= 0
@@ -81,13 +86,15 @@ func UseBladeIfCan()
   ?foe.count >= 10
   ^&item.GetCooldown("blade") <= 0
     equip blade
-    activate R
+		?item.CanActivate("blade")
+			activate R
 
 func UseMaskIfCan()
   ?item.GetCooldown("mask") <= 0 & buffs.count > 0 
 	^& foe.distance < 40 & foe.state ! 1
     equip mask
-    activate R
+    ?item.CanActivate("mask")
+			activate R
 
 func ShouldApplyPoison()
   var dbStr = foe.debuffs.string
@@ -123,3 +130,9 @@ func ShouldApplyPoison()
         return false
     :
       return false
+
+func IsCombatArea()
+	?foe.distance < 9999
+		return true
+	:
+		return false
