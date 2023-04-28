@@ -1,9 +1,20 @@
+
+var util = import Utility
+
 ?foe = boss
-    equipL sword -big dL
-    equipR sword -big dP
+    equipL sword -big ice dI
+
+		?util.ShouldApplyPoison()
+			equipR sword -big dP
+		:
+			equipR sword -big dL
 :
 	?foe.distance <= 20
-		equipL wand dL
-		equipR wand dP
+		?hp < maxhp
+			equipL wand dL
+		:
+			equipL wand ice dI
+		
+		equipR shield ice A
 	:
 		util.Equips_NonCombat()
