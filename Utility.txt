@@ -1,16 +1,5 @@
 /* ---UTILITY FUNCTIONS--- */
 
-var cooldownWindow = ascii
-╔═Cooldowns═╗
-║BFG-ATK####║
-║MSK-ATK####║
-║BS-DASH####║
-║QS-DASH####║
-║DS-DASH####║
-║MS-DODG####║
-╚═══════════╝
-asciiend
-
 func DisplayTime(offX, offY)
 	?IsCombatArea()
 		>`@offX@,@offY++@,
@@ -22,7 +11,16 @@ func DisplayTime(offX, offY)
 
 func DisplayCooldowns(offX, offY)
 	?IsCombatArea()
-		>`@offX@,@offY@,#white,@cooldownWindow@
+		>`@offX@,@offY@,#white,ascii
+╔═Cooldowns═╗
+║BFG-ATK    ║
+║MSK-ATK    ║
+║BS-DASH    ║
+║QS-DASH    ║
+║DS-DASH    ║
+║MS-DODG    ║
+╚═══════════╝
+asciiend
 
 		var contextX = offX + 9
 		var contextY = offY + 1
@@ -43,6 +41,21 @@ func DisplayCooldowns(offX, offY)
 				>`@contextX@,@contextY++@,#red,@cooldownValues[i]/30 + "s"@
 
 		cooldownValues.Clear()
+
+func DisplayFoeStats(offX, offY)
+	?IsCombatArea()
+		>`@offX@,@offY@,#white,ascii
+╔═══Foe═══╗
+║STATE    ║
+║TIME     ║
+╚═════════╝
+asciiend
+
+		var contextX = offX + 7
+		var contextY = offY + 1
+
+		>`@contextX@,@contextY++@,#white,@foe.state@
+		>`@contextX@,@contextY++@,#white,@foe.time@
 
 func Equips_NonCombat()
 	?item.GetCooldown("quarterstaff") = 0
