@@ -153,7 +153,7 @@ func ShouldApplyPoison()
       return false
 
 func IsCombatArea()
-	?foe.distance < 9999
-		return true
-	:
+	?loc.isQuest
 		return false
+	:
+		return true
