@@ -39,6 +39,7 @@ func DisplayFoeStats(offX, offY)
 ╔═══Foe═══╗
 ║STATE    ║
 ║TIME     ║
+║DIST     ║
 ╚═════════╝
 asciiend
 
@@ -47,6 +48,7 @@ asciiend
 
 		>`@contextX@,@contextY++@,#white,@foe.state@
 		>`@contextX@,@contextY++@,#white,@foe.time@
+		>`@contextX@,@contextY++@,#white,@foe.distance@
 
 func DisplayTime(offX, offY)
 	?IsCombatArea()
@@ -159,8 +161,7 @@ func UseBladeIfCan()
   ?foe.count >= 10
   ^&item.GetCooldown("blade") <= 0
     equip blade
-		?item.CanActivate("blade")
-			activate R
+		activate R
 
 func UseMaskIfCan()
   ?item.GetCooldown("mask") <= 0 & foe.distance < 40 & foe.state ! 1
