@@ -16,9 +16,11 @@ var util = import Utility
 				equipR sword -big dP
 		:?foe.distance <= 20
 			equipL hammer poison D
-			util.DashIfCan()
+			?item.GetCooldown("mind") <= 0
+				util.DashIfCan()
 		:
 			util.Equips_NonCombat()
+
 	://shroom bosses
 		?foe.armor > 0 & foe.distance > 6 & foe.distance < 20
 			equipL hammer poison D
