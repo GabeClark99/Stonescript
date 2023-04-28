@@ -3,6 +3,9 @@ var util = import Utility
 ?foe.distance <= 20
 	equipL wand vigor D +6 *8
 
+	?foe = boss
+		util.UseMaskIfCan()
+	
 	?foe = boss & util.ShouldApplyPoison()
 		equipR wand dP
 	:

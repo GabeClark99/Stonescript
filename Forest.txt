@@ -20,8 +20,6 @@ var util = import Utility
 		:
 			util.Equips_NonCombat()
 	://shroom bosses
-		//util.UseBladeIfCan()
-
 		?foe.armor > 0 & foe.distance > 6 & foe.distance < 20
 			equipL hammer poison D
 			util.DashIfCan()

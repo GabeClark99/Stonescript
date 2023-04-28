@@ -4,6 +4,7 @@ var util = import Utility
 	?foe.state = 32 & foe.time > 20
 		util.DodgeIfCan()
 	:?foe.state = 2
+		util.UseMaskIfCan()
 		equip crossbow aether D
 
 		/*equipL wand vigor D *8
@@ -21,7 +22,7 @@ var util = import Utility
 
 		?foe.distance > 6
 			util.DashIfCan()
-		:?ShouldApplyPoison()
+		:?util.ShouldApplyPoison()
 			equipR sword -big dP
 		/*:?hp < maxhp
 			equipR sword -big dL*/

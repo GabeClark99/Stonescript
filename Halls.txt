@@ -2,12 +2,13 @@ var util = import Utility
 
 ?foe = boss
 	?foe.distance <= 20
+		util.UseMaskIfCan()
 		equipL wand vigor D
 
 		?foe = phase1 & foe.state = 32 
 		^& foe.time >= 60
 			util.DodgeIfCan()
-		:?ShouldApplyPoison()
+		:?util.ShouldApplyPoison()
 			equipR wand poison dP
 		:?hp < maxhp
 			equipR wand vigor dL
