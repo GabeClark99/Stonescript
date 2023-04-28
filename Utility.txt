@@ -1,12 +1,48 @@
 /* ---UTILITY FUNCTIONS--- */
 
-func DisplayTime(xoff, yoff)
+var cooldownWindow = ascii
+╔═Cooldowns═╗
+║BFG-ATK####║
+║MSK-ATK####║
+║BS-DASH####║
+║QS-DASH####║
+║DS-DASH####║
+║MS-DODG####║
+╚═══════════╝
+asciiend
+
+func DisplayTime(offX, offY)
   >`@xoff@,@yoff++@,
   ^Best Time = @loc.bestTime/30@
   >`@xoff@,@yoff++@,
   ^Average Time = @loc.averageTime/30@
   >`@xoff@,@yoff++@,
   ^Current Time = @totaltime/30@
+
+func DisplayCooldowns(offX, offY)
+	>`@offX@,@offY@,#white,@cooldownWindow@
+
+	var contextX = offX + 9
+	var contextY = offY + 1
+
+	var cooldownValues = [
+	^item.GetCooldown("blade"),
+	^item.GetCooldown("mask"),
+	^item.GetCooldown("bash"),
+	^item.GetCooldown("quarterstaff"),
+	^item.GetCooldown("dash"),
+	^item.GetCooldown("mind")
+	]
+
+	for i = 0 .. 6 - 1
+		?cooldownValues[i] <= 0
+			>`@contextX@,@contextY++@,#green,RDY
+		:
+			>`@contextX@,@contextY++@,#red,@cooldownValues[i]/30 + "s"@
+
+	cooldownValues.Clear()
+
+	
 
 func Equips_NonCombat()
   ?foe.distance > 20
