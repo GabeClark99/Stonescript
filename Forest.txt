@@ -1,35 +1,45 @@
 var util = import Utility
 
 ?foe = boss
-	?foe.armor > 0 & foe.distance > 6
-	^& foe.distance < 20
-		equipL hammer poison D
-		util.DashIfCan()
+	?foe = snail | foe = puff
+		?foe.distance <= 6
+			?foe.armor > 0
+				equipL hammer poison D
+			:
+				equipL sword -big poison D
 
-	?foe.distance <= 6
-		?foe.armor > 0
+			?foe = puff & foe.distance < 5
+				util.DodgeIfCan()
+			:?hp < maxhp	
+				equipR sword -big dL
+			:
+				equipR sword -big dP
+		:?foe.distance <= 20
 			equipL hammer poison D
-		:
-			equipL sword poison D -big
-
-		?foe = puff & foe.time < 10
-			util.DodgeIfCan()
-		:?foe = Angry & foe.state = 32
-		^& foe.time > 40 & foe.time < 60
-			util.DodgeIfCan()
-		:?foe = Morel & foe.state = 33
-		^& foe.time > 10 & foe.time < 50
-			util.DodgeIfCan()
-		:?util.ShouldApplyPoison()
-			equipR sword poison dP -big
-		:?hp < maxhp
-			equipR sword dL -big
-		:
-			equipR sword poison dP -big
-	:
-		util.Equips_NonCombat()
-		?foe ! puff
 			util.DashIfCan()
+		:
+			util.Equips_NonCombat()
+	:
+		?foe.armor > 0 & foe.distance > 6 & foe.distance < 20
+			equipL hammer poison D
+			util.DashIfCan()
+
+		?foe.distance <= 6
+			?foe.armor > 0
+				equipL hammer poison D
+			:
+				equipL sword poison D -big
+
+			?util.ShouldApplyPoison()
+				equipR sword poison dP -big
+			:?hp < maxhp
+				equipR sword dL -big
+			:
+				equipR sword poison dP -big
+		:?foe.distance <= 20
+			util.DashIfCan()
+		:
+			util.Equips_NonCombat()
 
 : //adds
 	?foe.distance <= 6
