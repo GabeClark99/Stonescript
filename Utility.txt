@@ -1,14 +1,5 @@
 /* ---UTILITY FUNCTIONS--- */
 
-func DisplayTime(offX, offY)
-	?IsCombatArea()
-		>`@offX@,@offY++@,
-		^Best Time = @loc.bestTime/30@
-		>`@offX@,@offY++@,
-		^Average Time = @loc.averageTime/30@
-		>`@offX@,@offY++@,
-		^Current Time = @totaltime/30@
-
 func DisplayCooldowns(offX, offY)
 	?IsCombatArea()
 		>`@offX@,@offY@,#white,ascii
@@ -56,6 +47,22 @@ asciiend
 
 		>`@contextX@,@contextY++@,#white,@foe.state@
 		>`@contextX@,@contextY++@,#white,@foe.time@
+
+func DisplayTime(offX, offY)
+	?IsCombatArea()
+		>`@offX@,@offY@,#white,ascii
+╔══Time══╗
+║BST     ║
+║AVG     ║
+║CUR     ║
+╚════════╝
+asciiend
+		var contextX = offX + 5
+		var contextY = offY + 1
+
+		>`@contextX@,@contextY++@,#white,@loc.bestTime@
+		>`@contextX@,@contextY++@,#white,@loc.averageTime@
+		>`@contextX@,@contextY++@,#white,@totaltime@
 
 func Equips_NonCombat()
 	?item.GetCooldown("quarterstaff") = 0
