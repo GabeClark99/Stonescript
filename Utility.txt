@@ -106,10 +106,9 @@ asciiend
 			>`@contextX@,@contextY++@,#white,FBL 0
 
 func Equips_NonCombat()
-	?item.GetCooldown("quarterstaff") = 0
+	?item.GetCooldown("quarterstaff") = 0 & item.CanActivate()
 		equip quarterstaff
-		?item.CanActivate("quarterstaff")
-			activate R
+		activate R
 	:
 		equipL trisk
 
@@ -153,7 +152,7 @@ func UsePotionIfCan()
     activate potion
 
 func UseBladeIfCan()
-  ?foe.count >= 6
+  ?foe.count >= 12
   ^&item.GetCooldown("blade") <= 0
     equip blade
 		activate R
