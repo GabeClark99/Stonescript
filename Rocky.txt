@@ -1,2 +1,40 @@
 var util = import Utility
 
+?foe.distance <= 6
+	?foe = phase2
+		?foe = vigor
+			equipL sword -big poison D
+		:?foe = aether
+			equipL sword -big vigor
+		:?foe = fire
+			equipL sword -big aether
+		:?foe = ice
+			equipL sword -big fire
+		://?foe = poison
+			equipL sword -big ice
+	:?foe = phase3
+		?foe.armor > 0
+			equipL hammer poison
+		:
+			equipL sword -big dL
+	:
+		equipL sword -big dL
+
+	?foe.state = 115 & foe.time = 30
+		util.DodgeIfCan()
+	:?util.ShouldApplyPoison()
+		equipR sword -big dP
+	:?util.ShouldApplyFire()
+		equipR sword -big fire dF
+	:?foe.debuffs.string ! chill
+		equipR sword -big dI
+	:?hp < maxhp & item.left = hammer
+		equipR sword -big dL
+	:
+		equipR sword -big dI
+:?foe.distance <= 20
+	?foe.state ! 107 & foe.state ! 127 & foe.state ! 124 & foe.state ! -1 
+	^& foe.state ! 115 & foe.state ! 2 & foe.state ! 126 & foe.state ! 118
+		util.DashIfCan()
+:
+	util.Equips_NonCombat()
