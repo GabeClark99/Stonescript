@@ -81,32 +81,27 @@ asciiend
 		var contextY = offY + 1
 
 		?foe.debuffs.string = "debuff_chill"
-			var framesLeft = ParseDebuffFrames("debuff_chill")
-			>`@contextX@,@contextY++@,#cyan,ICE @framesLeft@
+			>`@contextX@,@contextY++@,#cyan,ICE @ParseDebuffFrames("debuff_chill")@
 		:
 			>`@contextX@,@contextY++@,#white,ICE 0
 
 		?foe.debuffs.string = "debuff_damage"
-			var framesLeft = ParseDebuffFrames("debuff_damage")
-			>`@contextX@,@contextY++@,#green,PSN @framesLeft@
+			>`@contextX@,@contextY++@,#green,PSN @ParseDebuffFrames("debuff_damage")@
 		:
 			>`@contextX@,@contextY++@,#white,PSN 0
 
 		?foe.debuffs.string = "debuff_dot"
-			var framesLeft = ParseDebuffFrames("debuff_dot")
-			>`@contextX@,@contextY++@,#red,FIR @framesLeft@
+			>`@contextX@,@contextY++@,#red,FIR @ParseDebuffFrames("debuff_dot")@
 		:
 			>`@contextX@,@contextY++@,#white,FIR 0
 
 		?foe.debuffs.string = "stun"
-			var framesLeft = ParseDebuffFrames("stun")
-			>`@contextX@,@contextY++@,#yellow,STN @framesLeft@
+			>`@contextX@,@contextY++@,#yellow,STN @ParseDebuffFrames("stun")@
 		:
 			>`@contextX@,@contextY++@,#white,STN 0
 
 		?foe.debuffs.string = "debuff_feeble"
-			var framesLeft = ParseDebuffFrames("debuff_feeble")
-			>`@contextX@,@contextY++@,#green,FBL @framesLeft@
+			>`@contextX@,@contextY++@,#green,FBL @ParseDebuffFrames("debuff_feeble")@
 		:
 			>`@contextX@,@contextY++@,#white,FBL 0
 
