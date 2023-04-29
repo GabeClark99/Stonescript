@@ -16,7 +16,7 @@ var util = import Utility
 				equipR sword -big dP
 		:?foe.distance <= 20
 			equipL hammer poison D
-			?item.GetCooldown("mind") <= 0
+			?foe.count < 2
 				util.DashIfCan()
 		:
 			util.Equips_NonCombat()
@@ -33,7 +33,11 @@ var util = import Utility
 			:
 				equipL sword poison D -big
 
-			?util.ShouldApplyPoison()
+			?foe = angry & foe.state = 32 & foe.time = 45
+				util.DodgeIfCan()
+			:?foe = morel & foe.state = 32 & foe.time = 10
+				util.DodgeIfCan()
+			:?util.ShouldApplyPoison()
 				equipR sword poison dP -big
 			:?util.ShouldApplyFire()
 				equipR sword -big fire dF
