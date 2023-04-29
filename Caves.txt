@@ -1,7 +1,7 @@
 var util = import Utility
 
 ?foe.distance <= 20
-	equipL wand vigor D +6 *8
+	equipL wand ice
 
 	?foe = boss
 		util.UseMaskIfCan()

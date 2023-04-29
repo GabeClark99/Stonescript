@@ -5,7 +5,7 @@ var util = import Utility
 		?foe = phase1
 			util.UseMaskIfCan()
 		
-		equipL wand vigor *8 D
+		equipL wand ice
 
 		?foe = phase1 & foe.state = 33 & foe.time = 10
 			?util.CanDodge()
@@ -19,7 +19,7 @@ var util = import Utility
 		:?hp < maxhp
 			equipR wand vigor dL
 		:
-			equipR wand vigor *9
+			equipL wand vigor *8 D
 	:
 		util.Equips_NonCombat()
 ://adds

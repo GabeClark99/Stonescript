@@ -3,7 +3,7 @@ var util = import Utility
 ?foe = boss
 	?foe.distance <= 20
 		util.UseMaskIfCan()
-		equipL wand vigor D
+		equipL wand ice
 
 		?foe = phase1 & foe.state = 32 
 		^& foe.time >= 60
@@ -13,7 +13,7 @@ var util = import Utility
 		:?hp < maxhp
 			equipR wand vigor dL
 		:
-			equipR wand vigor D *8
+			equipL wand vigor D +6 *8
 	:
 		util.Equips_NonCombat()
 
