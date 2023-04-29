@@ -33,7 +33,7 @@ var util = import Utility
 		?hp < maxhp
 			equipL wand dL
 		:
-			equipL wand vigor *8 +6
+			equipL wand ice
 
 		equipR shield fire
 	:
