@@ -19,7 +19,8 @@ var util = import Utility
 
 ://adds
 	?foe.distance <= 20
-		equipL wand vigor D
+		//equipL wand vigor D
+		equipL wand ice
 		
 		?hp < maxhp
 			equipR wand vigor dL

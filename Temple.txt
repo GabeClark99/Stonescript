@@ -15,7 +15,8 @@ var util = import Utility
 		:
 			equipR sword -big dL
 	:?foe.distance <= 20
-		util.DashIfCan()
+		?item.GetCooldown("mind") <= 0
+			util.DashIfCan()
 	:
 		util.Equips_NonCombat()
 :
