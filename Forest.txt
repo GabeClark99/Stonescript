@@ -27,7 +27,8 @@ var util = import Utility
 			util.DashIfCan()
 
 		?foe.distance <= 6
-			//util.UseMaskIfCan()
+			util.UseMaskIfCan()
+
 			?foe.armor > 0
 				equipL hammer poison D
 			:
@@ -35,7 +36,7 @@ var util = import Utility
 
 			?foe = angry & foe.state = 32 & foe.time = 45
 				util.DodgeIfCan()
-			:?foe = morel & foe.state = 32 & foe.time = 10
+			:?foe = morel & foe.state = 32 & foe.time = 26
 				util.DodgeIfCan()
 			:?util.ShouldApplyPoison()
 				equipR sword poison dP -big
@@ -52,7 +53,10 @@ var util = import Utility
 
 : //adds
 	?foe.distance <= 20
-		equipL poison wand D
+		?buffs.string = smite
+			equipL wand ice
+		:
+			equipL poison wand D
 
 		?hp < maxhp
 			equipR wand dL
