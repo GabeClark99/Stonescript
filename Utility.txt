@@ -114,6 +114,8 @@ func Equips_NonCombat()
 
 		?pickup.distance < 15
 			equipR star
+		:?buffs.count > 0
+			equipR mask
 		:
 			equipR oro
 
@@ -152,13 +154,14 @@ func UsePotionIfCan()
     activate potion
 
 func UseBladeIfCan()
-  ?foe.count >= 12
+  ?foe.count >= 13
   ^&item.GetCooldown("blade") <= 0
     equip blade
 		activate R
 
 func UseMaskIfCan()
-  ?item.GetCooldown("mask") <= 0 & foe.distance < 40 & foe.state ! 1
+  ?item.GetCooldown("mask") <= 0 & item.CanActivate()
+	^& foe.distance < 40 & foe.state ! 1
     equipR mask
     activate R
 
