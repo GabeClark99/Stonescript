@@ -5,7 +5,10 @@ var util = import Utility
 		?foe = phase1
 			util.UseMaskIfCan()
 		
-		equipL wand ice
+		?foe = phase1
+			equipL wand ice
+		:
+			equipL wand vigor D *9 +6
 
 		?foe = phase1 & foe.state = 33 & foe.time = 10
 			?util.CanDodge()
@@ -19,14 +22,13 @@ var util = import Utility
 		:?hp < maxhp
 			equipR wand vigor dL
 		:
-			equipL wand vigor *8 D
+			equipR wand vigor D *9 +6
 	:
 		util.Equips_NonCombat()
 ://adds
 	?foe.distance <= 6
 		?foe = immune_to_ranged
-			equipL sword -big dL
-			equipR sword -big dP
+			equip bardiche
 		:
 			equipL wand dL
 			equipR wand vigor D *8
