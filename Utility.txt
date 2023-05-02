@@ -51,7 +51,7 @@ asciiend
 		>`@contextX@,@contextY++@,#white,@foe.distance@
 
 func DisplayTime(offX, offY)
-	?IsCombatArea()
+	//?IsCombatArea()
 		>`@offX@,@offY@,#white,ascii
 ╔══Time══╗
 ║BST     ║
@@ -154,7 +154,7 @@ func UsePotionIfCan()
     activate potion
 
 func UseBladeIfCan()
-  ?foe.count >= 13
+  ?foe.count >= 6
   ^&item.GetCooldown("blade") <= 0
     equip blade
 		activate R
@@ -198,10 +198,10 @@ func ShouldApplyFire()
       return false
 
 func IsCombatArea()
-	?loc.isQuest
-		return false
-	:
+	?foe.distance < 9999
 		return true
+	:
+		return false
 
 func ParseDebuffFrames(targetDebuffName)
 	var debuffsString = foe.debuffs.string
