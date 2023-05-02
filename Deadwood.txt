@@ -8,7 +8,7 @@ var util = import Utility
 		?foe = phase1
 			equipL wand ice
 		:
-			equipL wand vigor D *9 +6
+			equipL wand vigor D *9 +7
 
 		?foe = phase1 & foe.state = 33 & foe.time = 10
 			?util.CanDodge()
@@ -22,13 +22,14 @@ var util = import Utility
 		:?hp < maxhp
 			equipR wand vigor dL
 		:
-			equipR wand vigor D *9 +6
+			equipR wand vigor D *10 +6
 	:
 		util.Equips_NonCombat()
-://adds
+:// not boss
 	?foe.distance <= 6
 		?foe = immune_to_ranged
-			equip bardiche
+			equipL sword dL
+			equipR compound shield
 		:
 			equipL wand dL
 			equipR wand vigor D *8
@@ -40,5 +41,14 @@ var util = import Utility
 			equipL wand dL
 			equipR wand vigor D *8
 	:
-		util.Equips_NonCombat()
+		?item.GetCooldown("quarterstaff") = 0 & item.CanActivate()
+			equip quarterstaff
+			activate R
+		:
+			equipL trisk
+
+			?pickup.distance < 15
+				equipR star
+			:
+				equipR compound shield
 
