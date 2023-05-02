@@ -9,7 +9,11 @@ var util = import Utility
 		util.UseMaskIfCan()
 		//equip crossbow aether D
 		equipL wand ice
-		equipR wand dL
+
+		?util.ShouldApplyFire()
+			equipR wand dF
+		:
+			equipR wand dL
 
 	:?foe.state = 33
 		//equipL sword -big dL
