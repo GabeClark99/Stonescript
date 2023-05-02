@@ -1,7 +1,7 @@
 
 var util = import Utility
 
-?foe = boss
+?foe = boss ! acronian_cultist
 	//util.UseMaskIfCan()
 	?foe.distance <= 6
 		equipL sword -big ice dI
