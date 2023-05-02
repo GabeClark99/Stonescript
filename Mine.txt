@@ -3,19 +3,10 @@ var util = import Utility
 ?foe = boss
 	?foe = bomb & foe.distance < 6
 		util.DodgeIfCan()
-	:?foe.state = 32 & foe.time > 20
+	:?foe.state = 32 & foe.time = 20
 		util.DodgeIfCan()
-	:?foe.state = 2
-		util.UseMaskIfCan()
-		//equip crossbow aether D
-		equipL wand ice
 
-		?util.ShouldApplyFire()
-			equipR wand dF
-		:
-			equipR wand dL
-
-	:?foe.state = 33
+	:?foe.state = 33 & foe.time<180
 		//equipL sword -big dL
 		equipL hammer aether
 
@@ -27,30 +18,31 @@ var util = import Utility
 			equipR sword -big dL*/
 		:
 			equipR sword -big aether
+
+	:?foe.state = 2 | foe.state=32 | (foe.state=33 & foe.time>=180)
+		? foe ! bomb_cart
+			util.UseMaskIfCan()
+			
+		//equip crossbow aether D
+		equipL wand ice
+
+		?util.ShouldApplyFire()
+			equipR wand dF
+		:
+			equipR wand vigor D *9 +7
 	:
 		util.Equips_NonCombat()
 
 : //not boss
-	/*?foe.distance <= 6
-		?foe.armor > 0
-			equipL hammer poison
-		:
-			equipL sword big dL
-
-		equipR shield aether A
-		
-		/*?foe.armor > 0
-			equipL hammer aether
-		:
-			equipL big aether D
-
-		?hp < maxhp
-			equipR big dL
-		:
-			equipR big dP*/
 	?foe.distance <= 20
-		//util.DashIfCan()
 		equipL wand ice
-		equipR shield aether
+
+		//util.DashIfCan()
+		? armor<20
+			equipR shield aether
+		:? hp<maxhp
+			equipR wand dL
+		:
+			equipR wand vigor D *9 +7
 	:
 		util.Equips_NonCombat()
