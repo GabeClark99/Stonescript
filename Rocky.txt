@@ -1,6 +1,8 @@
 var util = import Utility
 
 ?foe.distance <= 6
+	util.UseMaskIfCan()
+
 	?foe = phase2
 		?foe = vigor
 			equipL sword -big poison D
@@ -22,13 +24,15 @@ var util = import Utility
 
 	?foe.state = 115 & foe.time = 30
 		util.DodgeIfCan()
-	:?util.ShouldApplyPoison()
+	/*:?foe = phase3 & foe.state = 32 & foe.time = 86
+		util.DodgeIfCan()*/
+	:?foe ! phase2 & util.ShouldApplyPoison()
 		equipR sword -big dP
-	:?util.ShouldApplyFire()
+	:?foe ! phase2 & util.ShouldApplyFire()
 		equipR sword -big fire dF
-	:?foe.debuffs.string ! chill
+	:?foe ! phase2 & foe.debuffs.string ! chill
 		equipR sword -big dI
-	:?hp < maxhp & item.left = hammer
+	:?hp < maxhp & item.left ! dL
 		equipR sword -big dL
 	:
 		equipR sword -big dI
