@@ -7,7 +7,7 @@ var util = import Utility
 		?buffs.string = smite
 			equipL wand ice
 		:
-			equipL wand vigor D *9 +6
+			equipL wand vigor D *9 +7
 
 		?foe = phase1 & foe.state = 32 & foe.time >= 60
 			util.DodgeIfCan()
@@ -16,7 +16,7 @@ var util = import Utility
 		:?hp < maxhp
 			equipR wand vigor dL
 		:
-			equipR wand vigor D +6 *8
+			equipR wand vigor D *10 +6 
 	:
 		util.Equips_NonCombat()
 
