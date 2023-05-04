@@ -154,8 +154,8 @@ func UsePotionIfCan()
     activate potion
 
 func UseBladeIfCan()
-  ?foe.count >= 6
-  ^&item.GetCooldown("blade") <= 0
+  ? item.GetCooldown("blade") <= 0 & foe.count >= 6
+  ^ & screen.x % 69 = 0 & foe.distance <= 20
     equip blade
 		activate R
 
