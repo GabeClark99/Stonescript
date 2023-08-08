@@ -16,7 +16,7 @@ var util = import Utility
 				equipR sword -big dP
 		:?foe.distance <= 20
 			equipL hammer poison D
-			?foe.count < 2
+			?foe.count = 2 & foe ! puff
 				util.DashIfCan()
 		:
 			util.Equips_NonCombat()

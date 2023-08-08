@@ -1,23 +1,38 @@
 
 var util = import Utility
 
-?foe = boss & foe ! acronian_cultist
-	//util.UseMaskIfCan()
-	?foe.distance <= 6
-		equipL sword -big ice dI
+?foe = boss
+	?foe = acronian_cultist
+		?foe.distance <= 20
+			equipL wand ice
 
-		?foe.state = 112 & foe.time = 58
-			util.DodgeIfCan()
-		:?util.ShouldApplyPoison()
-			equipR sword -big dP
-		:?util.ShouldApplyFire()
-			equipR sword -big fire dF	
+			?util.ShouldApplyPoison()
+				equipR wand dP
+			:?util.ShouldApplyFire()
+				equipR wand dF
+			:?hp < maxhp
+				equipR wand dL
+			:
+				equipR wand vigor D
 		:
-			equipR sword -big dL
-	:?foe.distance <= 20
-		util.DashIfCan()
+			util.Equips_NonCombat()
 	:
-		util.Equips_NonCombat()
+		//util.UseMaskIfCan()
+		?foe.distance <= 6
+			equipL sword -big ice dI
+
+			?foe.state = 112 & foe.time = 58
+				util.DodgeIfCan()
+			:?util.ShouldApplyPoison()
+				equipR sword -big dP
+			:?util.ShouldApplyFire()
+				equipR sword -big fire dF	
+			:
+				equipR sword -big dL
+		:?foe.distance <= 20
+			util.DashIfCan()
+		:
+			util.Equips_NonCombat()
 :// not boss
 	?foe.distance <= 20
 		?hp < maxhp

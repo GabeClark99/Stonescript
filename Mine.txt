@@ -24,12 +24,13 @@ var util = import Utility
 			util.UseMaskIfCan()
 			
 		//equip crossbow aether D
-		equipL wand ice
+		//equipL wand ice
+		equipL wand aether
 
 		?util.ShouldApplyFire()
 			equipR wand dF
 		:
-			equipR wand vigor D *9 +7
+			equipR wand vigor D
 	:
 		util.Equips_NonCombat()
 
@@ -43,6 +44,6 @@ var util = import Utility
 		:? hp<maxhp
 			equipR wand dL
 		:
-			equipR wand vigor D *9 +7
+			equipR wand vigor D
 	:
 		util.Equips_NonCombat()

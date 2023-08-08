@@ -24,20 +24,24 @@ var util = import Utility
 
 	?foe.state = 115 & foe.time = 30
 		util.DodgeIfCan()
+	/*:?foe = phase2 & foe = vigor & foe.state = 32 & foe.time = 94 // 83 is early
+		util.DodgeIfCan()*/
 	/*:?foe = phase3 & foe.state = 32 & foe.time = 86
 		util.DodgeIfCan()*/
-	:?foe ! phase2 & util.ShouldApplyPoison()
+	:?foe.buffs.string ! protection & util.ShouldApplyPoison()
 		equipR sword -big dP
-	:?foe ! phase2 & util.ShouldApplyFire()
+	:?foe.buffs.string ! protection & util.ShouldApplyFire()
 		equipR sword -big fire dF
-	:?foe ! phase2 & foe.debuffs.string ! chill
+	:?foe.buffs.string ! protection & foe.debuffs.string ! "debuff_chill:6"
 		equipR sword -big dI
-	:?hp < maxhp & item.left ! dL
+	:?foe.armor > 0
+		equipR hammer aether
+	:?hp < maxhp & item.left ! vigor
 		equipR sword -big dL
 	:
 		equipR sword -big dI
 :?foe.distance <= 20
-	?foe.state ! 107 & foe.state ! 127 & foe.state ! 124 & foe.state ! -1 
+	? foe.state ! 107 & foe.state ! 127 & foe.state ! 124 & foe.state ! -1 
 	^& foe.state ! 115 & foe.state ! 2 & foe.state ! 126 & foe.state ! 118
 		util.DashIfCan()
 :

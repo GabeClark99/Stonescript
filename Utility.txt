@@ -62,9 +62,9 @@ asciiend
 		var contextX = offX + 5
 		var contextY = offY + 1
 
-		>`@contextX@,@contextY++@,#white,@loc.bestTime@
-		>`@contextX@,@contextY++@,#white,@loc.averageTime@
-		>`@contextX@,@contextY++@,#white,@totaltime@
+		>`@contextX@,@contextY++@,#white,@loc.bestTime/30@s
+		>`@contextX@,@contextY++@,#white,@loc.averageTime/30@s
+		>`@contextX@,@contextY++@,#white,@totaltime/30@s
 
 func DisplayDebuffs(offX, offY)
 	?IsCombatArea()
